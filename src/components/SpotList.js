@@ -7,9 +7,10 @@ import {
   Text,
   Image
 } from "react-native";
+import { withNavigation } from "react-navigation";
 import api from "../services/api";
 
-export default function SpotList({ tech }) {
+function SpotList({ tech, navigation }) {
   const [spots, setSpots] = useState([]);
 
   useEffect(() => {
@@ -22,6 +23,11 @@ export default function SpotList({ tech }) {
     }
     loadSpots();
   }, []);
+
+  function handleNavigate(id) {
+    navigation.navigate("Book", { id });
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
@@ -43,7 +49,10 @@ export default function SpotList({ tech }) {
             <Text style={styles.price}>
               {item.price ? `R$${item.price}/dia` : "Gratuito"}
             </Text>
-            <TouchableOpacity onPress={() => {}} style={styles.button}>
+            <TouchableOpacity
+              onPress={() => handleNavigate(item._id)}
+              style={styles.button}
+            >
               <Text style={styles.buttonText}>Solicitar Reserva</Text>
             </TouchableOpacity>
           </View>
@@ -103,3 +112,5 @@ const styles = StyleSheet.create({
     fontSize: 15
   }
 });
+
+export default withNavigation(SpotList);
