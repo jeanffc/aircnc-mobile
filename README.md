@@ -36,7 +36,7 @@ react-native run-ios
 For Android
 
 ```bash
-react-native run-ios
+react-native run-android
 ```
 
 ## Contact me
